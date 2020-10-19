@@ -3,7 +3,7 @@ unit ComponentBitmapEditor;
 interface
 
 uses
-  WinAPI.Windows, WinAPI.Messages, System.SysUtils, System.Classes,
+  WinAPI.Windows, WinAPI.Messages, System.SysUtils, System.Classes, System.UITypes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
 
 type
@@ -790,7 +790,7 @@ begin
     finally
       GlobalUnlock (data)
     end;
-    s.Seek (0, soFromBeginning);
+    s.Seek (0, TSeekOrigin.soBeginning);
     b.LoadFromStream (s);
 
     b.Palette := FClipboardPalette;

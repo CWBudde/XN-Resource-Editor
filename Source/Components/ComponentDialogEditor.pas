@@ -25,7 +25,7 @@ unit ComponentDialogEditor;
 interface
 
 uses
-  WinAPI.Windows, WinAPI.Messages, System.SysUtils, System.Classes,
+  WinAPI.Windows, WinAPI.Messages, System.SysUtils, System.Classes, System.Types, System.UITypes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, WinAPI.commctrl,
   WinAPI.RichEdit, Vcl.ExtCtrls, ComponentDialogBox, DialogConsts;
 
@@ -566,7 +566,7 @@ begin
   Result.isID := Length (st) > 0;
 
   for i := 1 to Length (st) do          // Is it all numeric ??
-    if not(st [i] in ['0'..'9']) then
+    if not CharInSet(st [i], ['0'..'9']) then
     begin
       Result.isID := False;
       break;
@@ -732,10 +732,11 @@ begin
 
     WM_STYLECHANGED:
       begin
-        if wParam = GWL_STYLE then
-          Control.FStyle := PStyleStruct(lParam).styleNew;
-        if wParam = GWL_EXSTYLE then
-          Control.FExStyle := PStyleStruct(lParam).styleNew;
+        //https://docs.microsoft.com/en-us/windows/win32/winmsg/wm-stylechanged
+        //if wParam = GWL_STYLE then
+        //  Control.FStyle := PStyleStruct(lParam).styleNew;
+        //if wParam = GWL_EXSTYLE then
+        //  Control.FExStyle := PStyleStruct(lParam).styleNew;
       end;
 
     WM_KEYDOWN:
